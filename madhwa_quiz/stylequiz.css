@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #d7f0a0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.grid {
+  width: 80%;
+  max-width: 600px;
+  background-color: #fbd7d7;
+  padding: 10px;
+  border: 2px solid #a3a1f5;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid h1 {
+  background-color: #6eb8f0;
+  font-size: 40px;
+  text-align: center;
+  color: #ffffff;
+  padding: 2px 0px;
+}
+
+.grid #question {
+  font-size: 30px;
+  color: #3d2906;
+  text-align: center;
+}
+
+#score {
+  color: #241ec6;
+  text-align: center;
+  font-size: 30px;
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#btn0,
+#btn1,
+#btn2,
+#btn3 {
+  background-color: #4309e0;
+  width: 100%;
+  max-width: 330px;
+  font-size: 35px;
+  color: #fff;
+  border: 1px solid #1d3c6a;
+  margin: 10px 0;
+  padding: 10px 10px;
+  border-radius: 10px;
+  font-family: 'Ubuntu Mono';
+}
+
+#btn0:hover,
+#btn1:hover,
+#btn2:hover,
+#btn3:hover {
+  cursor: pointer;
+  background-color: #f37ec8;
+}
+
+#btn0:focus,
+#btn1:focus,
+#btn2:focus,
+#btn3:focus {
+  outline: 0;
+}
+
+#progress {
+  color: #2b2b2b;
+  font-size: 26px;
+  text-align: center;
+}
+
+#retry,
+#showAnswers {
+  background-color: #b3d5fa;
+  font-size: 35px;
+  border-radius: 10px;
+  color: #4e0734;
+  display: none;
+  margin: 10px;
+  width: 100%;
+  max-width: 185px;
+}
+
+#message {
+  font-size: 18px;
+  color: #4008f7;
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .grid h1 {
+    font-size: 40px;
+  }
+
+  .grid #question {
+    font-size: 20px;
+  }
+
+  #btn0,
+  #btn1,
+  #btn2,
+  #btn3 {
+    width: 100%;
+    margin: 10px 0;
+    font-size: 18px;
+  }
+
+  #retry,
+  #showAnswers {
+    width: 100%;
+    margin: 10px 0;
+    font-size: 35px;
+    text-align: center;
+  }
+
+  #progress {
+    font-size: 22px;
+  }
+
+  #message {
+    font-size: 16px;
+  }
+}

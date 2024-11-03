@@ -1,0 +1,51 @@
+To serve your GitHub Pages site from a custom domain, follow these steps:
+
+1. **Add a CNAME File**:
+   - In the root of your repository, create a file named `CNAME`.
+   - Add your custom domain (e.g., `abjaja.in`) to the `CNAME` file.
+
+2. **Configure DNS Settings**:
+   - Log in to your domain registrar's website (MilesWeb in your case).
+   - Go to the DNS settings for your domain.
+   - Add a CNAME record pointing your custom domain to `harihargithub.github.io`.
+
+3. **GitHub Pages Settings**:
+   - Navigate to your repository's settings on GitHub: [Repository Settings](https://github.com/harihargithub/SrimadAcharyaah/settings/pages).
+   - In the "Custom domain" section, enter your custom domain and save.
+
+4. **Ensure HTTPS**:
+   - After setting up the custom domain, ensure that "Enforce HTTPS" is enabled in the GitHub Pages settings.
+
+By following these steps, your GitHub Pages site will be served from your custom domain.
+
+
+To create a `CNAME` file in the root of your repository and add your custom domain, follow these steps:
+
+1. **Navigate to Your Repository**:
+   - Go to your repository on GitHub: [SrimadAcharyaah](https://github.com/harihargithub/SrimadAcharyaah).
+
+2. **Create the `CNAME` File**:
+   - Click on the "Add file" button and select "Create new file".
+   - Name the file `CNAME`.
+
+3. **Edit the `CNAME` File**:
+   - In the editor, enter your custom domain (e.g., `abjaja.in`).
+   - The file should contain only the domain name with no extra text or formatting.
+
+4. **Commit the New File**:
+   - Scroll down to the "Commit new file" section.
+   - Add a commit message, for example, "Add CNAME file for custom domain".
+   - Choose "Commit directly to the `main` branch".
+   - Click "Commit new file".
+
+Your repository should now have a `CNAME` file with your custom domain. This will configure GitHub Pages to use your custom domain.
+
+Adding a CNAME record pointing `abjaja.in` to `harihargithub.github.io` will direct traffic for `abjaja.in` to your GitHub Pages site. If you want to keep the existing site at `abjaja.in` unaffected, you can instead create a subdomain (e.g., `pages.abjaja.in`) and point that subdomain to `harihargithub.github.io`.
+
+Here are the steps to do this:
+
+1. Log in to your domain registrar's website (MilesWeb).
+2. Go to the DNS settings for your domain.
+3. Add a CNAME record for the subdomain (e.g., `pages.abjaja.in`) pointing to `harihargithub.github.io`.
+
+This way, the main site at `abjaja.in` will remain unaffected, and your GitHub Pages site will be accessible at `pages.abjaja.in`.

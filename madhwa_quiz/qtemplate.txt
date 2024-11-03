@@ -1,0 +1,38 @@
+// Create an array of questions
+var questions = [
+  new Question(
+    'What did Kapila Bhagavan teach his mother?',
+    ['Nyaya शास्त्र', 'Yoga शास्त्र', 'Saankhya शास्त्र', 'Kavya शास्त्र'],
+    'Saankhya शास्त्र',
+  ),
+  new Question(
+    '1st King to rule Raghu Vamsha?',
+    ['Aja', 'Harischandra', 'Raghu', 'Dasharatha'],
+    'Harischandra',
+  ),
+  new Question(
+    'Where did Sri Vijaya daasaru spent his final days?',
+    ['Maanavi', 'Mantralaya', 'Pandharpur', 'Chippagiri'],
+    'Chippagiri',
+  ),
+  new Question(
+    'Name the father of Vikukshi?',
+    ['Ikshvaku', 'Sagara', 'Aagneeratah', 'Kukshi'],
+    'Ikshvaku',
+  ),
+  new Question(
+    'Wife of Rishabhadeva (ऋषभदेव)? ',
+    ['Tara', 'Jayanthi', 'Amba', 'Devayani'],
+    'Jayanthi',
+  ),
+  new Question(
+    'Names associated with Shri Raghavendra Swamy? ',
+    ['Rayaru', 'Sudha Parimalacharya', 'Venkatanatha', 'All'],
+    'All',
+  ),
+  new Question(
+    'HarikathamrutasAra, the magnum opus is composition of? ',
+    ['Vijaya Dasarau', 'Gopala Dasaru', 'Jagannatha Dasaru', 'Kanaka Dasaru'],
+    'Jagannatha Dasaru',
+  ),
+];
