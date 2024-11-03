@@ -1,51 +1,114 @@
-To serve your GitHub Pages site from a custom domain, follow these steps:
+https://harihargithub.github.io/Achaaryaah/quiz/q1.html
+https://madhwa.abjaja.in/quiz/q1.html
 
-1. **Add a CNAME File**:
-   - In the root of your repository, create a file named `CNAME`.
-   - Add your custom domain (e.g., `abjaja.in`) to the `CNAME` file.
+Want to create subdomain madhwa under abjaja.in in https://transform.herosite.pro:2222/evo/user/subdomains where there an option ADD SUBDOMAIN and want link https://harihargithub.github.io/Achaaryaah/quiz/q1.html
 
-2. **Configure DNS Settings**:
-   - Log in to your domain registrar's website (MilesWeb in your case).
-   - Go to the DNS settings for your domain.
-   - Add a CNAME record pointing your custom domain to `harihargithub.github.io`.
+To create a subdomain `madhwa.abjaja.in` and link it to `https://harihargithub.github.io/Achaaryaah/quiz/q1.html`, follow these steps:
 
-3. **GitHub Pages Settings**:
-   - Navigate to your repository's settings on GitHub: [Repository Settings](https://github.com/harihargithub/SrimadAcharyaah/settings/pages).
-   - In the "Custom domain" section, enter your custom domain and save.
+1. **Log in to Your Hosting Control Panel**:
+   - Go to [transform.herosite.pro:2222/evo/user/subdomains](https://transform.herosite.pro:2222/evo/user/subdomains).
 
-4. **Ensure HTTPS**:
-   - After setting up the custom domain, ensure that "Enforce HTTPS" is enabled in the GitHub Pages settings.
+2. **Add Subdomain**:
+   - Click on the `ADD SUBDOMAIN` button.
+   - Enter `madhwa` as the subdomain.
+   - Enter `abjaja.in` as the domain.
+   - Set the document root to the desired directory (e.g., `public_html/madhwa` or as required by your hosting provider).
+   - Submit the form to create the subdomain.
 
-By following these steps, your GitHub Pages site will be served from your custom domain.
+3. **Configure CNAME Record**:
+   - Go to the DNS settings for your domain (`abjaja.in`).
+   - Add a CNAME record for `madhwa.abjaja.in` pointing to `harihargithub.github.io`.
+
+4. **Verify and Test**:
+   - Allow some time for DNS propagation.
+   - Verify that accessing `madhwa.abjaja.in` redirects to `https://harihargithub.github.io/Achaaryaah/quiz/q1.html`.
+
+By following these steps, you should successfully create the subdomain and link it to your GitHub Pages site.
 
 
-To create a `CNAME` file in the root of your repository and add your custom domain, follow these steps:
+ADD NEW SUBDOMAIN
+Subdomain madhwa .abjaja.in
+Document Root - Defa - /domains/madhwa.abjaja.in/public_html
 
-1. **Navigate to Your Repository**:
-   - Go to your repository on GitHub: [SrimadAcharyaah](https://github.com/harihargithub/SrimadAcharyaah).
+I am in https://transform.herosite.pro:2222/evo/user/dns which has a big list viz. abjaja.in, ftp, madhwa, mail, pop, smtp, www, www.madhwa - TTL 3600 & Type A then abjaja.in - NS then abjaja.in - 3600 MX and so on so please advise where to add CNAME pointing to harihargithub.github.io ?
+ 
+ Click on Add Record then
 
-2. **Create the `CNAME` File**:
-   - Click on the "Add file" button and select "Create new file".
-   - Name the file `CNAME`.
+Record Type Cname selected, Name when I give as madhwa for.abjaja.in it says A A record already exists with that name, TTL 3600 & Value - when I give as harihargithub.github.io it says Result: harihargithub.github.io.abjaja.in
+Please add a period symbol at the end of the domain name if domain
+should not be auto-appended.
 
-3. **Edit the `CNAME` File**:
-   - In the editor, enter your custom domain (e.g., `abjaja.in`).
-   - The file should contain only the domain name with no extra text or formatting.
+To resolve the issue, you need to add a period at the end of the CNAME value to prevent it from being auto-appended. Follow these steps:
 
-4. **Commit the New File**:
-   - Scroll down to the "Commit new file" section.
-   - Add a commit message, for example, "Add CNAME file for custom domain".
-   - Choose "Commit directly to the `main` branch".
-   - Click "Commit new file".
+1. Click on the "Add Record" button.
+2. Select "CNAME" as the record type.
+3. Enter `madhwa` as the name or subdomain.
+4. Enter `harihargithub.github.io.` as the target or value (note the period at the end).
+5. Set the TTL to `3600` (or leave it as is).
+6. Save the record.
 
-Your repository should now have a `CNAME` file with your custom domain. This will configure GitHub Pages to use your custom domain.
+This will correctly create the CNAME record pointing `madhwa.abjaja.in` to `harihargithub.github.io`.
 
-Adding a CNAME record pointing `abjaja.in` to `harihargithub.github.io` will direct traffic for `abjaja.in` to your GitHub Pages site. If you want to keep the existing site at `abjaja.in` unaffected, you can instead create a subdomain (e.g., `pages.abjaja.in`) and point that subdomain to `harihargithub.github.io`.
+It seems that an A record for `madhwa.abjaja.in` already exists. You need to either delete the existing A record or choose a different subdomain name to avoid conflicts.
 
-Here are the steps to do this:
+If you want to proceed with using `madhwa.abjaja.in`, follow these steps:
 
-1. Log in to your domain registrar's website (MilesWeb).
-2. Go to the DNS settings for your domain.
-3. Add a CNAME record for the subdomain (e.g., `pages.abjaja.in`) pointing to `harihargithub.github.io`.
+1. **Delete the Existing A Record**:
+   - Locate the A record for `madhwa.abjaja.in` in your DNS settings.
+   - Delete this A record to free up the subdomain name.
 
-This way, the main site at `abjaja.in` will remain unaffected, and your GitHub Pages site will be accessible at `pages.abjaja.in`.
+2. **Add the CNAME Record**:
+   - Click on the "Add Record" button.
+   - Select "CNAME" as the record type.
+   - Enter `madhwa` as the name or subdomain.
+   - Enter `harihargithub.github.io.` as the target or value (note the period at the end).
+   - Set the TTL to `3600` (or leave it as is).
+   - Save the record.
+
+By following these steps, you will be able to successfully create the CNAME record for `madhwa.abjaja.in`.
+
+https://transform.herosite.pro:2222/evo/user/dns -
+madhwa 3600 CNAME harihargithub.github.io. - done
+
+Custom domains allow you to serve your site from a domain other than harihargithub. github. io.
+configuring custom domains.
+
+madhwa.abjaja.in
+. DNS Check in Progress
+
+Is this the reason I am unable to ticket Enforce HTTPS?
+
+Yes, the "DNS Check in Progress" status indicates that GitHub Pages is still verifying the DNS configuration for `madhwa.abjaja.in`. This is likely the reason you are unable to enable HTTPS enforcement. Once the DNS check is complete and the configuration is verified, you should be able to enforce HTTPS.
+
+DNS check successful but Enforce HTTPS — Unavailable for your site because a certificate has not yet been issued for your domain (madhwa.abjaja.in)
+
+The "Enforce HTTPS" option will become available once GitHub automatically issues an SSL certificate for your custom domain. This process can take a few hours. 
+
+Please check back later to see if the certificate has been issued. Once it is available, you will be able to enable HTTPS enforcement.
+
+It appears that there is no `CNAME` file in the `harihargithub/Achaaryaah` repository.
+
+If you need to create or update the `CNAME` file, you can follow these steps:
+
+1. Navigate to your repository on GitHub: [Achaaryaah](https://github.com/harihargithub/Achaaryaah).
+2. Click on the "Add file" button and select "Create new file".
+3. Name the file `CNAME`.
+4. In the editor, enter your custom domain (e.g., `madhwa.abjaja.in`).
+5. Scroll down to the "Commit new file" section.
+6. Add a commit message, for example, "Add CNAME file for custom domain".
+7. Choose "Commit directly to the `main` branch".
+8. Click "Commit new file".
+
+This will create the `CNAME` file in your repository and configure GitHub Pages to use your custom domain.
+
+The main domain `abjaja.in` will work fine as long as you only add a CNAME record for the subdomain `madhwa.abjaja.in`. The main domain's configuration won't be affected by this change.
+
+Let's proceed with the steps:
+
+1. **Check DNS Records**:
+   - Verify the current DNS records for `abjaja.in` to ensure there are no conflicting entries.
+
+2. **Verify GitHub Pages Configuration**:
+   - Ensure that the GitHub Pages site for `https://harihargithub.github.io/Achaaryaah/` is correctly set up.
+
+Confirm if you have any specific DNS configuration changes in mind, or if there are any particular concerns about the current setup.
