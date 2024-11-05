@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Submission Form</title>
+    <script>
+        var questions = [];
+        var currentQuestionIndex = 0;
+
+        function Question(text, options, answer) {
+            this.text = text;
+            this.options = options;
+            this.answer = answer;
+        }
+
+        function startQuestionnaire() {
+            if (currentQuestionIndex < 7) {
+                document.getElementById("question").textContent = "Question " + (currentQuestionIndex + 1) + ": ";
+                document.getElementById("formContainer").style.display = "block";
+            } else {
+                document.getElementById("formContainer").style.display = "none";
+                document.getElementById("submitOutput").style.display = "block";
+                displayOutput();
+            }
+        }
+
+        function submitQuestion() {
+            var questionText = document.getElementById("questionText").value;
+            var option1 = document.getElementById("option1").value;
+            var option2 = document.getElementById("option2").value;
+            var option3 = document.getElementById("option3").value;
+            var option4 = document.getElementById("option4").value;
+            var correctAnswer = document.getElementById("correctAnswer").value;
+
+            questions.push(new Question(questionText, [option1, option2, option3, option4], correctAnswer));
+
+            // Clear the form fields
+            document.getElementById("questionForm").reset();
+
+            currentQuestionIndex++;
+            startQuestionnaire();
+        }
+
+        function displayOutput() {
+            var output = 'var questions = [\n';
+            questions.forEach(q => {
+                output += `  new Question('${q.text}', ${JSON.stringify(q.options)}, '${q.answer}'),\n`;
+            });
+            output += '];';
+            document.getElementById("output").textContent = output;
+        }
+
+        window.onload = startQuestionnaire; // Start questionnaire on page load
+    </script>
+</head>
+
+<body>
+    <h1>Submit Questions</h1>
+    <div id="formContainer" style="display:none;">
+        <p id="question"></p>
+        <form id="questionForm" onsubmit="event.preventDefault(); submitQuestion();">
+            <label for="questionText">Question Text:</label>
+            <input type="text" id="questionText" required><br><br>
+
+            <label for="option1">Option 1:</label>
+            <input type="text" id="option1" required><br><br>
+
+            <label for="option2">Option 2:</label>
+            <input type="text" id="option2" required><br><br>
+
+            <label for="option3">Option 3:</label>
+            <input type="text" id="option3" required><br><br>
+
+            <label for="option4">Option 4:</label>
+            <input type="text" id="option4" required><br><br>
+
+            <label for="correctAnswer">Correct Answer:</label>
+            <input type="text" id="correctAnswer" required><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div id="submitOutput" style="display:none;">
+        <h2>Output:</h2>
+        <pre id="output"></pre>
+    </div>
+</body>
+
+</html>
