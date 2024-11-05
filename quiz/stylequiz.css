@@ -31,6 +31,14 @@ body {
   padding: 2px 0px;
 }
 
+.grid h2 {
+  background-color: #6eb8f0;
+  font-size: 18px;
+  text-align: center;
+  color: #fbf7fa;
+  padding: 2px 0px;
+}
+
 .grid #question {
   font-size: 30px;
   color: #3d2906;

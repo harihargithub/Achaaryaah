@@ -1,8 +1,8 @@
 // Create an array of questions
 var questions = [
   new Question(
-    'What did Kapila Bhagavan teach his mother?',
-    ['Nyaya शास्त्र', 'Yoga शास्त्र', 'Saankhya शास्त्र', 'Kavya शास्त्र'],
+    'King Parikshit put dead snake on which Rishi?',
+    ['Durvasa', 'vishwamitra', 'Saankhya शास्त्र', 'Kavya शास्त्र'],
     'Saankhya शास्त्र',
   ),
   new Question(
