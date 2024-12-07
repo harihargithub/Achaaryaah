@@ -175,7 +175,7 @@ function showAnswers() {
 function hideScores() {
   var element = document.getElementById('quiz');
   element.innerHTML = `
-          <h2>Correction message is welcome!</h2>
+          <h2 class="flash">Correction message is welcome!</h2>
           <hr style="margin-bottom: 20px">
           <p id="question"></p>
           <div class="buttons">
