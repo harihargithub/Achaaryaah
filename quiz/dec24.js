@@ -25,7 +25,7 @@ var questions = [
   ),
   new Question(
     'Narada Muni, in his last life was the son of a?',
-    ['Merchant.', 'King', ' Maid servant', 'Saintly person'],
+    ['Merchant.', 'King', 'Maid servant', 'Saint'],
     'Maid servant',
   ),
   new Question(
