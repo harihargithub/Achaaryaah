@@ -18,14 +18,9 @@ var questions = [
     'Hoovinakere',
   ),
   new Question(
-    'What is the name of the famous work authored by Sri Vadiraja Tirtharu?',
-    [
-      'Hayagriva Stotra',
-      'Sri Madhva Vijaya',
-      'Tattva Prakasika',
-      'Bhedojjivana',
-    ],
-    'Hayagriva Stotra',
+    'A travelogue of sacred pilgrimages serving as a reference guide for us?',
+    ['Kalpalata', 'Sri Madhva Vijaya', 'Lakshalankara', 'Tirtha Prabanda'],
+    'Tirtha Prabanda',
   ),
   new Question(
     'Which devotional song composed by Sri Vadiraja Tirtharu is widely sung during Krishna pujas?',
