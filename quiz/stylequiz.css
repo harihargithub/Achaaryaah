@@ -12,7 +12,7 @@ body {
 }
 
 .grid {
-  width: 80%;
+  width: 93%;
   max-width: 600px;
   background-color: #fbd7d7;
   padding: 10px;
@@ -79,7 +79,7 @@ body {
 #btn2:hover,
 #btn3:hover {
   cursor: pointer;
-  background-color: #f37ec8;
+  background-color: #570df5;
 }
 
 #btn0:focus,

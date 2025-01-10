@@ -1,7 +1,7 @@
 https://harihargithub.github.io/Achaaryaah/quiz/q1.html
 https://madhwa.abjaja.in/quiz/q1.html
 
-Want to create subdomain madhwa under abjaja.in in https://transform.herosite.pro:2222/evo/user/subdomains where there an option ADD SUBDOMAIN and want link https://harihargithub.github.io/Achaaryaah/quiz/q1.html
+Want to create subdomain madhwa under abjaja.in in https://transform.herosite.pro:2222/evo/user/subdomains where there an option ADD SUBDOMAIN and want to link https://harihargithub.github.io/Achaaryaah/quiz/q1.html
 
 To create a subdomain `madhwa.abjaja.in` and link it to `https://harihargithub.github.io/Achaaryaah/quiz/q1.html`, follow these steps:
 
@@ -102,6 +102,10 @@ If you need to create or update the `CNAME` file, you can follow these steps:
 This will create the `CNAME` file in your repository and configure GitHub Pages to use your custom domain.
 
 The main domain `abjaja.in` will work fine as long as you only add a CNAME record for the subdomain `madhwa.abjaja.in`. The main domain's configuration won't be affected by this change.
+
+https://github.com/harihargithub/Achaaryaah/settings/pages
+Branch
+Your GitHub Pages site is currently being built from the main branch - select main, / (root) & Save for the subdomain madhwa.abjaja.in to work
 
 Let's proceed with the steps:
 
