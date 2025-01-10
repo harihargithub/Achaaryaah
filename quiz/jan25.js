@@ -13,39 +13,59 @@ function Question(text, choices, answer) {
 // Create an array of questions
 var questions = [
   new Question(
-    'Which sage did King Parikshit place a dead snake upon?',
-    ['Durvasa', 'Vishwamitra', 'Shamika', 'Vasishta'],
-    'Shamika',
+    'What is the birthplace of Sri Vadiraja Tirtharu?',
+    ['Sode', 'Udupi', 'Hoovinakere', 'Badami'],
+    'Hoovinakere',
   ),
   new Question(
-    'Jagannath Dasaru’s original name?',
-    ['Ramacharya', 'Krishna Harya', 'Govindacharya', 'Srinivasacharya'],
-    'Srinivasacharya',
+    'What is the name of the famous work authored by Sri Vadiraja Tirtharu?',
+    [
+      'Hayagriva Stotra',
+      'Sri Madhva Vijaya',
+      'Tattva Prakasika',
+      'Bhedojjivana',
+    ],
+    'Hayagriva Stotra',
   ),
   new Question(
-    'On the banks of which river did the Vamana Avatar take place?',
-    ['River Kaveri', 'River Ganga', 'River Godavari', 'River Narmada'],
-    'River Narmada',
+    'Which devotional song composed by Sri Vadiraja Tirtharu is widely sung during Krishna pujas?',
+    [
+      'Krishna Karnamrita',
+      'Krishna Shataka',
+      'Dashavatara Stuti',
+      'Lakshmi Shobhane',
+    ],
+    'Dashavatara Stuti',
   ),
   new Question(
-    'Bali Chakravati’s wife name?',
-    ['Sunanda', 'Mitravinda', 'Vindhyavali', 'Kathyayani'],
-    'Vindhyavali',
+    'Which work of Sri Vadiraja Tirtharu is a detailed commentary on the Brahma Sutras?',
+    ['Nyaya Sudha', 'Tattva Prakashika', 'Bhedojjivana', 'Yukti Mallika'],
+    'Yukti Mallika',
   ),
   new Question(
-    'Daughter of King Sharyati?',
-    ['Sukanya', 'Susheela', 'Sumitra', 'Sunayana'],
-    'Sukanya',
+    'Sri Vadiraja Tirtharu’s "Lakshmi Shobhane" is specifically written for which occasion?',
+    [
+      'Wedding ceremonies',
+      'Child naming rituals',
+      'Krishna Janmashtami',
+      'Devara puja',
+    ],
+    'Wedding ceremonies',
   ),
   new Question(
-    'Whom did Sage Atri marry?',
-    ['Arundhati', 'Ahalya', 'Dhriti', 'Anasuya'],
-    'Anasuya',
+    'Sri Vadiraja Tirtha’s lifetime on earth lasted a full 120 years, from?',
+    [
+      '1380 CE to 1500 CE',
+      '1480 CE to 1600 CE',
+      '1470 CE to 1590 CE',
+      '1580 CE to 1700 CE',
+    ],
+    '1480 CE to 1600 CE',
   ),
   new Question(
-    'How many dhatus are in the human body(fundamental tissues)?',
-    ['Eight', 'Ten', 'Six', 'Seven'],
-    'Seven',
+    'Who was freed from the Brahmarakshasa curse through the divine grace and intervention of Shri Vadiraja Tirtharu?',
+    ['Hidimba', 'Bhasmasura', 'Bhootaraja', 'Ghantakarna'],
+    'Bhootaraja',
   ),
 ];
 
@@ -174,20 +194,20 @@ function showAnswers() {
 function hideScores() {
   var element = document.getElementById('quiz');
   element.innerHTML = `
-        <h2>Compiled by Vid.Prashantha Bhargavacharya, Pejawar Mutt</h2>
-        <hr style="margin-bottom: 20px">
-        <p id="question"></p>
-        <div class="buttons">
-          <button id="btn0"><span id="choice0"></span></button>
-          <button id="btn1"><span id="choice1"></span></button>
-          <button id="btn2"><span id="choice2"></span></button>
-          <button id="btn3"><span id="choice3"></span></button>
-        </div>
-        <hr style="margin-top: 50px">
-        <footer>
-          <p id="progress">Question x of y</p>
-        </footer>
-      `;
+            <h2 class="flash">Correction message is welcome!</h2>
+            <hr style="margin-bottom: 20px">
+            <p id="question"></p>
+            <div class="buttons">
+              <button id="btn0"><span id="choice0"></span></button>
+              <button id="btn1"><span id="choice1"></span></button>
+              <button id="btn2"><span id="choice2"></span></button>
+              <button id="btn3"><span id="choice3"></span></button>
+            </div>
+            <hr style="margin-top: 50px">
+            <footer>
+              <p id="progress">Question x of y</p>
+            </footer>
+          `;
   var retryButton = document.getElementById('retry');
   retryButton.style.display = 'none'; // Hide the retry button
 
