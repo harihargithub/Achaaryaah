@@ -89,18 +89,19 @@ function callNumber() {
   const calledNumber = remainingNumbers.splice(randomIndex, 1)[0];
   document.getElementById('called-number').textContent = calledNumber;
 
-  // Save called number to localStorage
+  // Retrieve the existing called numbers or initialize to an empty array
   const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
-  calledNumbers.push(calledNumber); // Add the new number
-  localStorage.setItem('calledNumbers', JSON.stringify(calledNumbers)); // Store in localStorage
+
+  // Add the new called number to the list
+  calledNumbers.push(calledNumber);
+
+  // Save the updated called numbers back to localStorage
+  localStorage.setItem('calledNumbers', JSON.stringify(calledNumbers));
 
   // Debug: Check the called numbers in localStorage
-  console.log(
-    'Called Numbers: ',
-    JSON.parse(localStorage.getItem('calledNumbers')),
-  );
+  console.log('Called Numbers: ', calledNumbers); // Now logging properly
 
-  // Highlight the called number
+  // Highlight the called number on the board
   const numberElement = document.getElementById(`number-${calledNumber}`);
   if (numberElement) numberElement.classList.add('called');
 }
