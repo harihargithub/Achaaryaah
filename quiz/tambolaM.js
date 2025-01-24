@@ -1,9 +1,8 @@
-// tambolaM.js
-
 const totalNumbers = Array.from({ length: 90 }, (_, i) => i + 1);
 let remainingNumbers = [...totalNumbers];
 let players = [];
 let playerCount = 0;
+let calledNumbers = [];
 
 // Generate the number board
 const board = document.getElementById('number-board');
@@ -15,6 +14,10 @@ totalNumbers.forEach((num) => {
   board.appendChild(div);
 });
 
+// Clear called numbers from Firebase when the page loads
+database.ref('calledNumbers').set([]);
+
+// Function to add a player
 function addPlayer() {
   playerCount++;
   const playerTicket = generateRandomTicket();
@@ -100,11 +103,11 @@ function callNumber() {
   const calledNumber = remainingNumbers.splice(randomIndex, 1)[0];
   document.getElementById('called-number').textContent = calledNumber;
 
-  // Retrieve the existing called numbers or initialize to an empty array
-  let calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
-
   // Add the new called number to the list
   calledNumbers.push(calledNumber);
+
+  // Save the updated called numbers to Firebase
+  database.ref('calledNumbers').set(calledNumbers);
 
   // Save the updated called numbers back to localStorage
   localStorage.setItem('calledNumbers', JSON.stringify(calledNumbers));
