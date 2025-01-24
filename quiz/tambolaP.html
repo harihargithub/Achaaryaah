@@ -11,60 +11,85 @@
 <body>
     <h1>Tambola Ticket</h1>
     <div id="ticket" class="ticket"></div>
+    <p id="message"></p> <!-- To display any messages or errors -->
 
     <script>
-        // Get playerId from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const playerId = urlParams.get('playerId'); // Get playerId from the URL
+        // Function to load the player's ticket
+        function loadPlayerTicket() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const playerId = urlParams.get('playerId'); // Get playerId from the URL
+            const messageElement = document.getElementById('message');
 
-        if (!playerId) {
-            document.body.innerHTML = '<h2>Player ID not found. Please check the link or contact the manager.</h2>';
-        } else {
-            const ticket = JSON.parse(localStorage.getItem(`playerTicket-${playerId}`)); // Load ticket from localStorage
-            console.log(`Loaded ticket for player ${playerId}:`, ticket); // Debugging
-
-            if (ticket) {
-                const ticketDiv = document.getElementById('ticket');
-
-                // Loop through the ticket numbers
-                ticket.forEach((num) => {
-                    const div = document.createElement('div');
-                    div.classList.add('cell');
-
-                    // Display the number or leave the cell empty
-                    div.textContent = num !== '' ? num : '';  // Display empty if empty string
-                    div.id = `ticket-${playerId}-${num}`;
-
-                    // Handle punching when clicked
-                    div.onclick = () => punchNumber(playerId, num, div);
-
-                    ticketDiv.appendChild(div);
-                });
-            } else {
-                document.body.innerHTML = '<h2>Ticket not found. Please contact the manager.</h2>';
+            // Check if playerId is provided
+            if (!playerId) {
+                messageElement.textContent = 'Player ID not found. Please check the link or contact the manager.';
+                return;
             }
+
+            // Retrieve the ticket from localStorage
+            const ticketKey = `playerTicket-${playerId}`;
+            const ticket = JSON.parse(localStorage.getItem(ticketKey)); // Load ticket for the player
+            console.log(`Loaded ticket for key "${ticketKey}":`, ticket); // Debugging
+
+            // Check if the ticket exists
+            if (!ticket) {
+                messageElement.textContent = `Ticket for Player ${playerId} not found. Please contact the manager.`;
+                return;
+            }
+
+            // Display the ticket
+            const ticketDiv = document.getElementById('ticket');
+            ticket.forEach((num) => {
+                const div = document.createElement('div');
+                div.classList.add('cell');
+
+                // Display the number or leave the cell empty
+                div.textContent = num !== '' ? num : ''; // Empty string for blank cells
+                if (num !== '') div.id = `ticket-${playerId}-${num}`; // Assign an ID to each cell
+
+                // Allow punching only if the cell has a number
+                if (num !== '') {
+                    div.onclick = () => punchNumber(playerId, num, div);
+                }
+
+                ticketDiv.appendChild(div);
+            });
         }
 
-        // Punch a number on the ticket
+        // Function to punch a number on the ticket
         function punchNumber(playerId, num, cell) {
             const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
             if (calledNumbers.includes(num)) {
-                cell.classList.add('punched');
+                cell.classList.add('punched'); // Highlight punched numbers
             } else {
                 alert('This number has not been called yet!');
             }
         }
 
         // Periodic Update: Sync called numbers every 5 seconds
-        setInterval(() => {
-            const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
-            calledNumbers.forEach((num) => {
-                const numberElement = document.getElementById(`ticket-${playerId}-${num}`);
-                if (numberElement) {
-                    numberElement.classList.add('punched');
-                }
-            });
-        }, 5000); // Check every 5 seconds
+        function syncCalledNumbers(playerId) {
+            setInterval(() => {
+                const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
+                calledNumbers.forEach((num) => {
+                    const numberElement = document.getElementById(`ticket-${playerId}-${num}`);
+                    if (numberElement) {
+                        numberElement.classList.add('punched');
+                    }
+                });
+            }, 5000); // Check every 5 seconds
+        }
+
+        // Initialize the player ticket and sync updates
+        (function init() {
+            loadPlayerTicket();
+
+            // Get playerId for syncing called numbers
+            const urlParams = new URLSearchParams(window.location.search);
+            const playerId = urlParams.get('playerId');
+            if (playerId) {
+                syncCalledNumbers(playerId);
+            }
+        })();
     </script>
 </body>
 
