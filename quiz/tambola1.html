@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambola Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .number-board {
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .number {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border: 1px solid #000;
+            border-radius: 5px;
+        }
+
+        .called {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .ticket {
+            display: grid;
+            grid-template-columns: repeat(9, 50px);
+            gap: 5px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        .cell {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border: 1px solid #000;
+            text-align: center;
+        }
+
+        .punched {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tambola Game</h1>
+    <div id="number-board" class="number-board"></div>
+    <button onclick="callNumber()">Call Number</button>
+    <h3>Called Number: <span id="called-number">-</span></h3>
+    <h2>Your Ticket</h2>
+    <div id="player-ticket" class="ticket"></div>
+
+    <script src="tambola1.js"></script>
+</body>
+
+</html>
+```

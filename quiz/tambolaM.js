@@ -1,0 +1,153 @@
+// tambolaM.js
+
+const totalNumbers = Array.from({ length: 90 }, (_, i) => i + 1);
+let remainingNumbers = [...totalNumbers];
+let players = [];
+let playerCount = 0;
+
+// Generate the number board
+const board = document.getElementById('number-board');
+totalNumbers.forEach((num) => {
+  const div = document.createElement('div');
+  div.classList.add('number');
+  div.textContent = num;
+  div.id = `number-${num}`;
+  board.appendChild(div);
+});
+
+// Add a new player
+function addPlayer() {
+  playerCount++;
+  const playerTicket = generateRandomTicket();
+  players.push({ id: playerCount, ticket: playerTicket, punched: [] });
+
+  // Save the player's ticket to localStorage
+  localStorage.setItem(
+    `playerTicket-${playerCount}`,
+    JSON.stringify(playerTicket),
+  );
+
+  const playerDiv = document.createElement('div');
+  playerDiv.classList.add('player-container');
+  playerDiv.id = `player-${playerCount}`;
+  playerDiv.innerHTML = `
+          <h3>Player ${playerCount}</h3>
+          <div id="ticket-${playerCount}" class="ticket"></div>
+          <p>Share this link with Player ${playerCount}: 
+             <a href="https://madhwa.abjaja.in/quiz/tambolaP.html?playerId=${playerCount}" target="_blank">
+               Player ${playerCount} Ticket
+             </a>
+          </p>
+          <button onclick="checkWin(${playerCount})">Check Win</button>
+      `;
+
+  const ticketDiv = playerDiv.querySelector(`#ticket-${playerCount}`);
+  playerTicket.forEach((num) => {
+    const div = document.createElement('div');
+    div.classList.add('cell');
+    div.textContent = num || ''; // Empty cell for null
+    ticketDiv.appendChild(div);
+  });
+
+  document.getElementById('players').appendChild(playerDiv);
+}
+
+// Generate a random ticket
+function generateRandomTicket() {
+  const ticket = Array.from({ length: 9 * 3 }, () => null);
+  for (let i = 0; i < 15; i++) {
+    let index;
+    do {
+      index = Math.floor(Math.random() * ticket.length);
+    } while (ticket[index] !== null);
+    ticket[index] =
+      totalNumbers[Math.floor(Math.random() * totalNumbers.length)];
+  }
+  return ticket;
+}
+
+// Call a random number
+function callNumber() {
+  if (remainingNumbers.length === 0) {
+    alert('All numbers have been called!');
+    return;
+  }
+
+  const randomIndex = Math.floor(Math.random() * remainingNumbers.length);
+  const calledNumber = remainingNumbers.splice(randomIndex, 1)[0];
+  document.getElementById('called-number').textContent = calledNumber;
+
+  // Save called number to localStorage
+  const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
+  calledNumbers.push(calledNumber);
+  localStorage.setItem('calledNumbers', JSON.stringify(calledNumbers));
+
+  // Highlight the called number
+  const numberElement = document.getElementById(`number-${calledNumber}`);
+  if (numberElement) numberElement.classList.add('called');
+}
+
+// Punch a number on the ticket
+function punchNumber(playerId, num, cell) {
+  const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
+  if (num && calledNumbers.includes(num)) {
+    cell.classList.add('punched');
+    players.find((player) => player.id === playerId).punched.push(num);
+  } else {
+    alert('This number has not been called yet!');
+  }
+}
+
+// Check for winning patterns
+function checkWin(playerId) {
+  const player = players.find((player) => player.id === playerId);
+  const { ticket, punched } = player;
+
+  // Check full house
+  if (punched.length === 15) {
+    document.getElementById(
+      'winner-message',
+    ).textContent = `Player ${playerId} wins with a Full House!`;
+    return;
+  }
+
+  // Check rows
+  for (let i = 0; i < 3; i++) {
+    const row = ticket.slice(i * 9, (i + 1) * 9).filter((n) => n !== null);
+    if (row.every((num) => punched.includes(num))) {
+      document.getElementById(
+        'winner-message',
+      ).textContent = `Player ${playerId} wins with Row ${i + 1}!`;
+      return;
+    }
+  }
+
+  // Check corners
+  const corners = [ticket[0], ticket[8], ticket[18], ticket[26]];
+  if (corners.every((num) => punched.includes(num))) {
+    document.getElementById(
+      'winner-message',
+    ).textContent = `Player ${playerId} wins with Corners!`;
+    return;
+  }
+
+  alert(`Player ${playerId} has not won yet. Keep playing!`);
+}
+
+// Retrieve ticket for player view (used in player-specific HTML)
+function loadPlayerTicket(playerId) {
+  const ticket = JSON.parse(localStorage.getItem(`playerTicket-${playerId}`));
+  if (!ticket) {
+    alert('Ticket not found for this player. Please contact the manager.');
+    return;
+  }
+
+  const ticketDiv = document.getElementById('ticket');
+  ticket.forEach((num) => {
+    const div = document.createElement('div');
+    div.classList.add('cell');
+    div.textContent = num || '';
+    div.onclick = () => punchNumber(playerId, num, div);
+    ticketDiv.appendChild(div);
+  });
+}

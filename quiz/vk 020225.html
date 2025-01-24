@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Room Allocation</title>
+</head>
+
+<body>
+    <h1>Room Allocation for Event</h1>
+    <label for="guestName">Guest Name:</label>
+    <input type="text" id="guestName">
+    <button onclick="allocateRoom()">Allocate Room</button>
+    <p id="output"></p>
+
+    <script>
+        const rooms = [101, 102, 103, 104, 105]; // Add room numbers
+        const allocated = [];
+
+        function allocateRoom() {
+            const guestName = document.getElementById("guestName").value;
+            if (!guestName || allocated.length >= rooms.length) {
+                document.getElementById("output").innerText = "No rooms available or invalid input!";
+                return;
+            }
+            const room = rooms[allocated.length];
+            allocated.push({ guestName, room });
+            document.getElementById("output").innerText = `${guestName} has been allocated Room ${room}`;
+        }
+    </script>
+</body>
+
+</html>

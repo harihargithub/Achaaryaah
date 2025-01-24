@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambola Manager</title>
+    <link rel="stylesheet" type="text/css" href="tambola.css">
+</head>
+
+<body>
+    <h1>Tambola Game - Manager</h1>
+    <div id="number-board" class="number-board"></div>
+    <button onclick="callNumber()">Call Number</button>
+    <h3>Called Number: <span id="called-number">-</span></h3>
+
+    <h2>Players</h2>
+    <div id="players"></div>
+    <button onclick="addPlayer()">Add Player</button>
+    <p id="winner-message"></p>
+
+    <script src="tambolaM.js"></script>
+</body>
+
+</html>
