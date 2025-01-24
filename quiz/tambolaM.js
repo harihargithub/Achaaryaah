@@ -55,7 +55,7 @@ function addPlayer() {
 
 // Generate a random ticket
 function generateRandomTicket() {
-  const ticket = Array.from({ length: 9 * 3 }, () => null); // 3 rows, 9 columns
+  const ticket = Array.from({ length: 27 }, () => null); // 3 rows, 9 columns, total 27 cells
   const selectedNumbers = new Set(); // A Set to avoid duplicate numbers
 
   // Generate exactly 15 unique numbers for the ticket
@@ -65,15 +65,18 @@ function generateRandomTicket() {
     selectedNumbers.add(randomNumber); // Add unique numbers to the set
   }
 
-  // Distribute the 15 numbers into the ticket
+  // Convert the Set to an array of numbers
   const numbers = Array.from(selectedNumbers);
-  for (let i = 0; i < 15; i++) {
-    let index;
-    do {
-      index = Math.floor(Math.random() * ticket.length); // Randomly select an empty cell
-    } while (ticket[index] !== null); // Ensure the cell is empty
 
-    ticket[index] = numbers[i]; // Place the number in the ticket
+  // Distribute the 15 numbers into the ticket, leaving the rest as `null`
+  let count = 0;
+  while (count < 15) {
+    const index = Math.floor(Math.random() * ticket.length); // Randomly select an empty cell
+    if (ticket[index] === null) {
+      // Ensure the cell is empty
+      ticket[index] = numbers[count]; // Place the number in the ticket
+      count++;
+    }
   }
 
   // Debugging: Log the generated ticket to verify
