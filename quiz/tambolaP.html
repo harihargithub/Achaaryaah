@@ -42,6 +42,9 @@
                 return;
             }
 
+            // Clear punched numbers from local storage
+            localStorage.removeItem(`punchedNumbers-${playerId}`);
+
             // Retrieve the ticket from Firebase
             const ticketKey = `playerTickets/${playerId}`;
             database.ref(ticketKey).once('value').then((snapshot) => {
@@ -76,25 +79,33 @@
 
         // Function to punch a number on the ticket
         function punchNumber(playerId, num, cell) {
-            const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
-            if (calledNumbers.includes(num)) {
-                cell.classList.add('punched'); // Highlight punched numbers
-            } else {
-                alert('This number has not been called yet!');
-            }
+            database.ref('calledNumbers').once('value').then((snapshot) => {
+                const calledNumbers = snapshot.val() || [];
+                if (calledNumbers.includes(num)) {
+                    cell.classList.add('punched'); // Highlight punched numbers
+                    // Store punched numbers in local storage
+                    let punchedNumbers = JSON.parse(localStorage.getItem(`punchedNumbers-${playerId}`)) || [];
+                    if (!punchedNumbers.includes(num)) {
+                        punchedNumbers.push(num);
+                        localStorage.setItem(`punchedNumbers-${playerId}`, JSON.stringify(punchedNumbers));
+                    }
+                } else {
+                    alert('This number has not been called yet!');
+                }
+            });
         }
 
-        // Periodic Update: Sync called numbers every 5 seconds
+        // Sync called numbers from Firebase in real-time
         function syncCalledNumbers(playerId) {
-            setInterval(() => {
-                const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
+            database.ref('calledNumbers').on('value', (snapshot) => {
+                const calledNumbers = snapshot.val() || [];
                 calledNumbers.forEach((num) => {
                     const numberElement = document.getElementById(`ticket-${playerId}-${num}`);
                     if (numberElement) {
                         numberElement.classList.add('punched');
                     }
                 });
-            }, 5000); // Check every 5 seconds
+            });
         }
 
         // Initialize the player ticket and sync updates
