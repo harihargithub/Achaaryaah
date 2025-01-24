@@ -1,5 +1,20 @@
 https://harihargithub.github.io/Achaaryaah/quiz/q1.html
 https://madhwa.abjaja.in/quiz/q1.html
+https://madhwa.abjaja.in/quiz/q2.html
+https://madhwa.abjaja.in/quiz/q3.html
+https://madhwa.abjaja.in/quiz/dec24.html
+https://madhwa.abjaja.in/quiz/jan25.html
+https://madhwa.abjaja.in/quiz/jan25k.html
+https://madhwa.abjaja.in/quiz/feb25.html
+
+https://madhwa.abjaja.in/quiz/tambolaM.html
+https://madhwa.abjaja.in/quiz/tambolaP.html
+https://madhwa.abjaja.in/quiz/tambolaP.html?playerId=1
+https://madhwa.abjaja.in/quiz/tambolaP.html?playerId=2
+https://madhwa.abjaja.in/quiz/tambolaP.html?playerId=3 
+...
+
+
 
 Want to create subdomain madhwa under abjaja.in in https://transform.herosite.pro:2222/evo/user/subdomains where there an option ADD SUBDOMAIN and want to link https://harihargithub.github.io/Achaaryaah/quiz/q1.html
 

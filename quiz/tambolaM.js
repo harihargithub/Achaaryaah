@@ -54,15 +54,27 @@ function addPlayer() {
 
 // Generate a random ticket
 function generateRandomTicket() {
-  const ticket = Array.from({ length: 9 * 3 }, () => null);
+  const ticket = Array.from({ length: 9 * 3 }, () => null); // 3 rows, 9 columns
+  const selectedNumbers = new Set(); // A Set to avoid duplicate numbers
+
+  // Generate exactly 15 numbers for the ticket
+  while (selectedNumbers.size < 15) {
+    const randomNumber =
+      totalNumbers[Math.floor(Math.random() * totalNumbers.length)];
+    selectedNumbers.add(randomNumber); // Add unique numbers to the set
+  }
+
+  // Distribute the 15 numbers into the ticket
+  const numbers = Array.from(selectedNumbers);
   for (let i = 0; i < 15; i++) {
     let index;
     do {
-      index = Math.floor(Math.random() * ticket.length);
-    } while (ticket[index] !== null);
-    ticket[index] =
-      totalNumbers[Math.floor(Math.random() * totalNumbers.length)];
+      index = Math.floor(Math.random() * ticket.length); // Randomly select an empty cell
+    } while (ticket[index] !== null); // Ensure the cell is empty
+
+    ticket[index] = numbers[i]; // Place the number in the ticket
   }
+
   return ticket;
 }
 
@@ -79,8 +91,14 @@ function callNumber() {
 
   // Save called number to localStorage
   const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
-  calledNumbers.push(calledNumber);
-  localStorage.setItem('calledNumbers', JSON.stringify(calledNumbers));
+  calledNumbers.push(calledNumber); // Add the new number
+  localStorage.setItem('calledNumbers', JSON.stringify(calledNumbers)); // Store in localStorage
+
+  // Debug: Check the called numbers in localStorage
+  console.log(
+    'Called Numbers: ',
+    JSON.parse(localStorage.getItem('calledNumbers')),
+  );
 
   // Highlight the called number
   const numberElement = document.getElementById(`number-${calledNumber}`);

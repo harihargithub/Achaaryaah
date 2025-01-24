@@ -11,23 +11,32 @@
 <body>
     <h1>Tambola Ticket</h1>
     <div id="ticket" class="ticket"></div>
+
     <script>
         // Get playerId from URL
         const urlParams = new URLSearchParams(window.location.search);
-        const playerId = urlParams.get('playerId');
+        const playerId = urlParams.get('playerId'); // Get playerId from the URL
 
         if (!playerId) {
             document.body.innerHTML = '<h2>Player ID not found. Please check the link or contact the manager.</h2>';
         } else {
-            // Load ticket from localStorage
-            const ticket = JSON.parse(localStorage.getItem(`playerTicket-${playerId}`));
+            const ticket = JSON.parse(localStorage.getItem(`playerTicket-${playerId}`)); // Load ticket from localStorage
+
             if (ticket) {
                 const ticketDiv = document.getElementById('ticket');
-                ticket.forEach((num) => {
+
+                // Loop through the ticket numbers
+                ticket.forEach((num, index) => {
                     const div = document.createElement('div');
                     div.classList.add('cell');
-                    div.textContent = num || '';
-                    div.onclick = () => punchNumber(num, div);
+
+                    // Display the number or leave the cell empty
+                    div.textContent = num !== null ? num : '';  // Display empty if null
+                    div.id = `ticket-${playerId}-${num}`;
+
+                    // Handle punching when clicked
+                    div.onclick = () => punchNumber(playerId, num, div);
+
                     ticketDiv.appendChild(div);
                 });
             } else {
@@ -36,7 +45,7 @@
         }
 
         // Punch a number on the ticket
-        function punchNumber(num, cell) {
+        function punchNumber(playerId, num, cell) {
             const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
             if (calledNumbers.includes(num)) {
                 cell.classList.add('punched');
@@ -45,7 +54,7 @@
             }
         }
 
-        // Periodically check for new called numbers
+        // Periodic Update: Sync called numbers every 5 seconds
         setInterval(() => {
             const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
             calledNumbers.forEach((num) => {
