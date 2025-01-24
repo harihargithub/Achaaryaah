@@ -75,7 +75,7 @@ function generateRandomTicket() {
     ticket[index] = numbers[i]; // Place the number in the ticket
   }
 
-  // Debugging: Log the ticket to verify
+  // Debugging: Log the generated ticket to verify
   console.log('Generated Ticket for Player: ', ticket);
 
   return ticket;
@@ -93,7 +93,7 @@ function callNumber() {
   document.getElementById('called-number').textContent = calledNumber;
 
   // Retrieve the existing called numbers or initialize to an empty array
-  const calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
+  let calledNumbers = JSON.parse(localStorage.getItem('calledNumbers')) || [];
 
   // Add the new called number to the list
   calledNumbers.push(calledNumber);
