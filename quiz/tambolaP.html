@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambola Player</title>
     <link rel="stylesheet" type="text/css" href="tambola.css">
+    <!-- Add Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 </head>
 
 <body>
@@ -14,6 +17,19 @@
     <p id="message"></p> <!-- To display any messages or errors -->
 
     <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZAVFIJV9W_A4W7lh07Ikt2-oeNuMwJhQ",
+            authDomain: "tambola-db7bb.firebaseapp.com",
+            databaseURL: "https://tambola-db7bb-default-rtdb.firebaseio.com",
+            projectId: "tambola-db7bb",
+            storageBucket: "tambola-db7bb.appspot.com",
+            messagingSenderId: "689800248387",
+            appId: "1:689800248387:web:68767bd47485bdf7d828f6"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
         // Function to load the player's ticket
         function loadPlayerTicket() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -26,33 +42,35 @@
                 return;
             }
 
-            // Retrieve the ticket from localStorage
-            const ticketKey = `playerTicket-${playerId}`;
-            const ticket = JSON.parse(localStorage.getItem(ticketKey)); // Load ticket for the player
-            console.log(`Loaded ticket for key "${ticketKey}":`, ticket); // Debugging
+            // Retrieve the ticket from Firebase
+            const ticketKey = `playerTickets/${playerId}`;
+            database.ref(ticketKey).once('value').then((snapshot) => {
+                const ticket = snapshot.val();
+                console.log(`Loaded ticket for key "${ticketKey}":`, ticket); // Debugging
 
-            // Check if the ticket exists
-            if (!ticket) {
-                messageElement.textContent = `Ticket for Player ${playerId} not found. Please contact the manager.`;
-                return;
-            }
-
-            // Display the ticket
-            const ticketDiv = document.getElementById('ticket');
-            ticket.forEach((num) => {
-                const div = document.createElement('div');
-                div.classList.add('cell');
-
-                // Display the number or leave the cell empty
-                div.textContent = num !== '' ? num : ''; // Empty string for blank cells
-                if (num !== '') div.id = `ticket-${playerId}-${num}`; // Assign an ID to each cell
-
-                // Allow punching only if the cell has a number
-                if (num !== '') {
-                    div.onclick = () => punchNumber(playerId, num, div);
+                // Check if the ticket exists
+                if (!ticket) {
+                    messageElement.textContent = `Ticket for Player ${playerId} not found. Please contact the manager.`;
+                    return;
                 }
 
-                ticketDiv.appendChild(div);
+                // Display the ticket
+                const ticketDiv = document.getElementById('ticket');
+                ticket.forEach((num) => {
+                    const div = document.createElement('div');
+                    div.classList.add('cell');
+
+                    // Display the number or leave the cell empty
+                    div.textContent = num !== '' ? num : ''; // Empty string for blank cells
+                    if (num !== '') div.id = `ticket-${playerId}-${num}`; // Assign an ID to each cell
+
+                    // Allow punching only if the cell has a number
+                    if (num !== '') {
+                        div.onclick = () => punchNumber(playerId, num, div);
+                    }
+
+                    ticketDiv.appendChild(div);
+                });
             });
         }
 

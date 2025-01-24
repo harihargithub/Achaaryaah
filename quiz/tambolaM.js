@@ -20,12 +20,9 @@ function addPlayer() {
   const playerTicket = generateRandomTicket();
   players.push({ id: playerCount, ticket: playerTicket, punched: [] });
 
-  // Save the player's ticket to localStorage
+  // Save the player's ticket to Firebase
   console.log(`Saving ticket for player ${playerCount}:`, playerTicket); // Debugging
-  localStorage.setItem(
-    `playerTicket-${playerCount}`,
-    JSON.stringify(playerTicket),
-  );
+  database.ref(`playerTickets/${playerCount}`).set(playerTicket);
 
   // Create player element and display the ticket
   const playerDiv = document.createElement('div');
@@ -52,6 +49,7 @@ function addPlayer() {
 
   document.getElementById('players').appendChild(playerDiv);
 }
+
 // Generate a random ticket
 function generateRandomTicket() {
   const ticket = Array.from({ length: 27 }, () => ''); // 3 rows, 9 columns, total 27 cells
@@ -89,7 +87,9 @@ function generateRandomTicket() {
   console.log('Generated Ticket for Player: ', ticket);
 
   return ticket;
-} // Call a random number
+}
+
+// Call a random number
 function callNumber() {
   if (remainingNumbers.length === 0) {
     alert('All numbers have been called!');
