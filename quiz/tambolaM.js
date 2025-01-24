@@ -77,12 +77,18 @@ function generateRandomTicket() {
     }
   }
 
+  // Ensure all remaining cells are empty strings
+  for (let i = 0; i < ticket.length; i++) {
+    if (ticket[i] === null) {
+      ticket[i] = '';
+    }
+  }
+
   // Debugging: Log the generated ticket to verify
   console.log('Generated Ticket for Player: ', ticket);
 
   return ticket;
-}
-// Call a random number
+} // Call a random number
 function callNumber() {
   if (remainingNumbers.length === 0) {
     alert('All numbers have been called!');
