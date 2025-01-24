@@ -15,7 +15,6 @@ totalNumbers.forEach((num) => {
   board.appendChild(div);
 });
 
-// Add a new player
 function addPlayer() {
   playerCount++;
   const playerTicket = generateRandomTicket();
@@ -46,16 +45,15 @@ function addPlayer() {
   playerTicket.forEach((num) => {
     const div = document.createElement('div');
     div.classList.add('cell');
-    div.textContent = num || ''; // Empty cell for null
+    div.textContent = num || ''; // Empty cell for empty string
     ticketDiv.appendChild(div);
   });
 
   document.getElementById('players').appendChild(playerDiv);
 }
-
 // Generate a random ticket
 function generateRandomTicket() {
-  const ticket = Array.from({ length: 27 }, () => null); // 3 rows, 9 columns, total 27 cells
+  const ticket = Array.from({ length: 27 }, () => ''); // 3 rows, 9 columns, total 27 cells
   const selectedNumbers = new Set(); // A Set to avoid duplicate numbers
 
   // Generate exactly 15 unique numbers for the ticket
@@ -68,11 +66,11 @@ function generateRandomTicket() {
   // Convert the Set to an array of numbers
   const numbers = Array.from(selectedNumbers);
 
-  // Distribute the 15 numbers into the ticket, leaving the rest as `null`
+  // Distribute the 15 numbers into the ticket, leaving the rest as empty strings
   let count = 0;
   while (count < 15) {
     const index = Math.floor(Math.random() * ticket.length); // Randomly select an empty cell
-    if (ticket[index] === null) {
+    if (ticket[index] === '') {
       // Ensure the cell is empty
       ticket[index] = numbers[count]; // Place the number in the ticket
       count++;
@@ -84,7 +82,6 @@ function generateRandomTicket() {
 
   return ticket;
 }
-
 // Call a random number
 function callNumber() {
   if (remainingNumbers.length === 0) {

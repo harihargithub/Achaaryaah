@@ -31,7 +31,7 @@
                     div.classList.add('cell');
 
                     // Display the number or leave the cell empty
-                    div.textContent = num !== null ? num : '';  // Display empty if null
+                    div.textContent = num !== '' ? num : '';  // Display empty if empty string
                     div.id = `ticket-${playerId}-${num}`;
 
                     // Handle punching when clicked
