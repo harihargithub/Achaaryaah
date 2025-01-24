@@ -27,19 +27,20 @@ function addPlayer() {
     JSON.stringify(playerTicket),
   );
 
+  // Create player element and display the ticket
   const playerDiv = document.createElement('div');
   playerDiv.classList.add('player-container');
   playerDiv.id = `player-${playerCount}`;
   playerDiv.innerHTML = `
-          <h3>Player ${playerCount}</h3>
-          <div id="ticket-${playerCount}" class="ticket"></div>
-          <p>Share this link with Player ${playerCount}: 
-             <a href="https://madhwa.abjaja.in/quiz/tambolaP.html?playerId=${playerCount}" target="_blank">
-               Player ${playerCount} Ticket
-             </a>
-          </p>
-          <button onclick="checkWin(${playerCount})">Check Win</button>
-      `;
+        <h3>Player ${playerCount}</h3>
+        <div id="ticket-${playerCount}" class="ticket"></div>
+        <p>Share this link with Player ${playerCount}: 
+           <a href="https://madhwa.abjaja.in/quiz/tambolaP.html?playerId=${playerCount}" target="_blank">
+             Player ${playerCount} Ticket
+           </a>
+        </p>
+        <button onclick="checkWin(${playerCount})">Check Win</button>
+    `;
 
   const ticketDiv = playerDiv.querySelector(`#ticket-${playerCount}`);
   playerTicket.forEach((num) => {
