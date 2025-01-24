@@ -57,7 +57,7 @@ function generateRandomTicket() {
   const ticket = Array.from({ length: 9 * 3 }, () => null); // 3 rows, 9 columns
   const selectedNumbers = new Set(); // A Set to avoid duplicate numbers
 
-  // Generate exactly 15 numbers for the ticket
+  // Generate exactly 15 unique numbers for the ticket
   while (selectedNumbers.size < 15) {
     const randomNumber =
       totalNumbers[Math.floor(Math.random() * totalNumbers.length)];
@@ -74,6 +74,9 @@ function generateRandomTicket() {
 
     ticket[index] = numbers[i]; // Place the number in the ticket
   }
+
+  // Debugging: Log the ticket to verify
+  console.log('Generated Ticket for Player: ', ticket);
 
   return ticket;
 }
@@ -98,8 +101,8 @@ function callNumber() {
   // Save the updated called numbers back to localStorage
   localStorage.setItem('calledNumbers', JSON.stringify(calledNumbers));
 
-  // Debug: Check the called numbers in localStorage
-  console.log('Called Numbers: ', calledNumbers); // Now logging properly
+  // Debugging: Log the called numbers to verify
+  console.log('Called Numbers: ', calledNumbers); // Log called numbers for debugging
 
   // Highlight the called number on the board
   const numberElement = document.getElementById(`number-${calledNumber}`);
