@@ -80,7 +80,7 @@ function generateRandomTicket() {
 
   // Ensure all remaining cells are empty strings
   for (let i = 0; i < ticket.length; i++) {
-    if (ticket[i] === null) {
+    if (ticket[i] === null || ticket[i] === '') {
       ticket[i] = '';
     }
   }
