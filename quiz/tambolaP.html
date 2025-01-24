@@ -21,6 +21,7 @@
             document.body.innerHTML = '<h2>Player ID not found. Please check the link or contact the manager.</h2>';
         } else {
             const ticket = JSON.parse(localStorage.getItem(`playerTicket-${playerId}`)); // Load ticket from localStorage
+            console.log(`Loaded ticket for player ${playerId}:`, ticket); // Debugging
 
             if (ticket) {
                 const ticketDiv = document.getElementById('ticket');

@@ -21,6 +21,7 @@ function addPlayer() {
   players.push({ id: playerCount, ticket: playerTicket, punched: [] });
 
   // Save the player's ticket to localStorage
+  console.log(`Saving ticket for player ${playerCount}:`, playerTicket); // Debugging
   localStorage.setItem(
     `playerTicket-${playerCount}`,
     JSON.stringify(playerTicket),
