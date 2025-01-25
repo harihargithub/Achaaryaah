@@ -114,9 +114,7 @@ function callNumber() {
 
   // Display the corresponding phrase
   const phrase = phrases[calledNumber] || '';
-  const phraseElement = document.createElement('p');
-  phraseElement.textContent = phrase;
-  document.getElementById('called-number').appendChild(phraseElement);
+  document.getElementById('called-phrase').textContent = phrase;
 
   // Add the new called number to the list
   calledNumbers.push(calledNumber);
