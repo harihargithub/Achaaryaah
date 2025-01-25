@@ -3,6 +3,15 @@ let remainingNumbers = [...totalNumbers];
 let players = [];
 let playerCount = 0;
 let calledNumbers = [];
+let phrases = {};
+
+// Load phrases from JSON file
+fetch('phrases.json')
+  .then((response) => response.json())
+  .then((data) => {
+    phrases = data;
+  })
+  .catch((error) => console.error('Error loading phrases:', error));
 
 // Generate the number board
 const board = document.getElementById('number-board');
@@ -102,6 +111,12 @@ function callNumber() {
   const randomIndex = Math.floor(Math.random() * remainingNumbers.length);
   const calledNumber = remainingNumbers.splice(randomIndex, 1)[0];
   document.getElementById('called-number').textContent = calledNumber;
+
+  // Display the corresponding phrase
+  const phrase = phrases[calledNumber] || '';
+  const phraseElement = document.createElement('p');
+  phraseElement.textContent = phrase;
+  document.getElementById('called-number').appendChild(phraseElement);
 
   // Add the new called number to the list
   calledNumbers.push(calledNumber);
