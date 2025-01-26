@@ -29,17 +29,19 @@ body {
   grid-template-columns: repeat(9, 50px);
   gap: 0.5px;
   justify-content: center;
-  margin: 20px auto;
+  margin: 2px auto;
 }
 
 #ticket-title {
   color: rgb(48, 57, 181);
   font-size: 24px;
+  margin: 1px;
 }
 
 #message {
   color: rgb(244, 83, 83);
   font-size: 24px;
+  margin: 1px;
 }
 
 .cell {
