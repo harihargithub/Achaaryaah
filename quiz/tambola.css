@@ -27,9 +27,19 @@ body {
 .ticket {
   display: grid;
   grid-template-columns: repeat(9, 50px);
-  gap: 5px;
+  gap: 0.5px;
   justify-content: center;
   margin: 20px auto;
+}
+
+#ticket-title {
+  color: rgb(48, 57, 181);
+  font-size: 24px;
+}
+
+#message {
+  color: rgb(244, 83, 83);
+  font-size: 24px;
 }
 
 .cell {
@@ -38,6 +48,7 @@ body {
   line-height: 50px;
   border: 1px solid #000;
   text-align: center;
+  background-color: aqua;
 }
 
 .punched {
