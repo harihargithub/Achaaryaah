@@ -9,10 +9,37 @@
     <!-- Add Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <style>
+        /* Add styles for landscape mode */
+        @media (orientation: landscape) {
+            .landscape-message {
+                display: none;
+            }
+        }
+
+        @media (orientation: portrait) {
+            .landscape-message {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.8);
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 24px;
+                z-index: 1000;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Tambola Ticket</h1>
+    <div class="landscape-message">Please rotate your device to landscape mode for a better experience.</div>
+    <h1 id="ticket-title">Tambola Ticket</h1>
     <div id="ticket" class="ticket"></div>
     <p id="message"></p> <!-- To display any messages or errors -->
 
@@ -41,6 +68,9 @@
                 messageElement.textContent = 'Player ID not found. Please check the link or contact the manager.';
                 return;
             }
+
+            // Update the ticket title with playerId
+            document.getElementById('ticket-title').textContent = `Tambola Ticket# ${playerId}`;
 
             // Clear punched numbers from local storage
             localStorage.removeItem(`punchedNumbers-${playerId}`);
