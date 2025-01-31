@@ -23,8 +23,11 @@ totalNumbers.forEach((num) => {
   board.appendChild(div);
 });
 
-// Clear called numbers from Firebase when the page loads
-database.ref('calledNumbers').set([]);
+// Clear called numbers and player tickets from Firebase when the page loads
+database.ref().set({
+  calledNumbers: [],
+  playerTickets: {},
+});
 
 // Function to add a player
 function addPlayer() {
@@ -34,7 +37,7 @@ function addPlayer() {
 
   // Save the player's ticket to Firebase
   console.log(`Saving ticket for player ${playerCount}:`, playerTicket); // Debugging
-  database.ref(`playerTickets/${playerCount}`).set(playerTicket);
+  database.ref(`playerTickets/${playerCount}`).set({ ticket: playerTicket });
 
   // Create player element and display the ticket
   const playerDiv = document.createElement('div');
@@ -44,7 +47,7 @@ function addPlayer() {
         <h3>Player ${playerCount}</h3>
         <div id="ticket-${playerCount}" class="ticket"></div>
         <p>Share this link with Player ${playerCount}: 
-           <a href="https://madhwa.abjaja.in/quiz/tambolaP.html?playerId=${playerCount}" target="_blank">
+           <a href="http://127.0.0.1:5501/quiz/tambolaP.html?playerId=${playerCount}" target="_blank">
              Player ${playerCount} Ticket
            </a>
         </p>

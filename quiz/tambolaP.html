@@ -63,20 +63,48 @@
         // Function to load the player's ticket
         function loadPlayerTicket() {
             const urlParams = new URLSearchParams(window.location.search);
-            const playerId = urlParams.get('playerId'); // Get playerId from the URL
+            let playerId = urlParams.get('playerId'); // Get playerId from the URL
             const messageElement = document.getElementById('message');
 
             // Check if playerId is provided
             if (!playerId) {
-                messageElement.textContent = 'Player ID not found. Please check the link or contact the manager.';
-                return;
+                // If playerId is not provided, find an available playerId
+                allocatePlayerId().then((newPlayerId) => {
+                    playerId = newPlayerId;
+
+                    // Update the URL with the new playerId
+                    window.history.replaceState(null, null, `?playerId=${playerId}`);
+
+                    // Proceed to load the ticket
+                    loadTicket(playerId);
+                }).catch((error) => {
+                    messageElement.textContent = 'No available player IDs. Please contact the manager.';
+                    console.error('Error allocating player ID:', error);
+                });
+            } else {
+                // Proceed to load the ticket
+                loadTicket(playerId);
             }
+        }
 
-            // Update the ticket title with playerId
-            document.getElementById('ticket-title').textContent = `Tambola Ticket# ${playerId}`;
+        // Function to allocate a unique player ID
+        function allocatePlayerId() {
+            return database.ref('playerTickets').once('value').then((snapshot) => {
+                const playerTickets = snapshot.val() || {};
+                const availableIds = Object.keys(playerTickets).filter(id => !playerTickets[id].allocated);
+                if (availableIds.length > 0) {
+                    const newPlayerId = availableIds[0];
+                    playerTickets[newPlayerId].allocated = true;
+                    return database.ref('playerTickets').set(playerTickets).then(() => newPlayerId);
+                } else {
+                    throw new Error('No available player IDs');
+                }
+            });
+        }
 
-            // Clear punched numbers from local storage
-            localStorage.removeItem(`punchedNumbers-${playerId}`);
+        // Function to load the ticket for a given playerId
+        function loadTicket(playerId) {
+            const messageElement = document.getElementById('message');
 
             // Retrieve the ticket from Firebase
             const ticketKey = `playerTickets/${playerId}`;
@@ -85,14 +113,21 @@
                 console.log(`Loaded ticket for key "${ticketKey}":`, ticket); // Debugging
 
                 // Check if the ticket exists
-                if (!ticket) {
+                if (!ticket || !ticket.ticket) {
                     messageElement.textContent = `Ticket for Player ${playerId} not found. Please contact the manager.`;
                     return;
                 }
 
+                // Update the ticket title with playerId
+                document.getElementById('ticket-title').textContent = `Tambola Ticket# ${playerId}`;
+
+                // Clear punched numbers from local storage
+                localStorage.removeItem(`punchedNumbers-${playerId}`);
+
                 // Display the ticket
                 const ticketDiv = document.getElementById('ticket');
-                ticket.forEach((num) => {
+                ticketDiv.innerHTML = ''; // Clear previous ticket cells
+                ticket.ticket.forEach((num) => {
                     const div = document.createElement('div');
                     div.classList.add('cell');
 
@@ -100,32 +135,29 @@
                     div.textContent = num !== '' ? num : ''; // Empty string for blank cells
                     if (num !== '') div.id = `ticket-${playerId}-${num}`; // Assign an ID to each cell
 
-                    // Allow punching only if the cell has a number
-                    if (num !== '') {
-                        div.onclick = () => punchNumber(playerId, num, div);
-                    }
-
                     ticketDiv.appendChild(div);
                 });
+
+                // Sync called numbers to automatically punch the ticket
+                syncCalledNumbers(playerId);
+            }).catch((error) => {
+                messageElement.textContent = 'Error loading ticket. Please try again.';
+                console.error('Error loading ticket:', error);
             });
         }
 
         // Function to punch a number on the ticket
-        function punchNumber(playerId, num, cell) {
-            database.ref('calledNumbers').once('value').then((snapshot) => {
-                const calledNumbers = snapshot.val() || [];
-                if (calledNumbers.includes(num)) {
-                    cell.classList.add('punched'); // Highlight punched numbers
-                    // Store punched numbers in local storage
-                    let punchedNumbers = JSON.parse(localStorage.getItem(`punchedNumbers-${playerId}`)) || [];
-                    if (!punchedNumbers.includes(num)) {
-                        punchedNumbers.push(num);
-                        localStorage.setItem(`punchedNumbers-${playerId}`, JSON.stringify(punchedNumbers));
-                    }
-                } else {
-                    alert('This number has not been called yet!');
+        function punchNumber(playerId, num) {
+            const cell = document.getElementById(`ticket-${playerId}-${num}`);
+            if (cell) {
+                cell.classList.add('punched'); // Highlight punched numbers
+                // Store punched numbers in local storage
+                let punchedNumbers = JSON.parse(localStorage.getItem(`punchedNumbers-${playerId}`)) || [];
+                if (!punchedNumbers.includes(num)) {
+                    punchedNumbers.push(num);
+                    localStorage.setItem(`punchedNumbers-${playerId}`, JSON.stringify(punchedNumbers));
                 }
-            });
+            }
         }
 
         // Sync called numbers from Firebase in real-time
@@ -133,10 +165,7 @@
             database.ref('calledNumbers').on('value', (snapshot) => {
                 const calledNumbers = snapshot.val() || [];
                 calledNumbers.forEach((num) => {
-                    const numberElement = document.getElementById(`ticket-${playerId}-${num}`);
-                    if (numberElement) {
-                        numberElement.classList.add('punched');
-                    }
+                    punchNumber(playerId, num);
                 });
             });
         }
@@ -144,13 +173,6 @@
         // Initialize the player ticket and sync updates
         (function init() {
             loadPlayerTicket();
-
-            // Get playerId for syncing called numbers
-            const urlParams = new URLSearchParams(window.location.search);
-            const playerId = urlParams.get('playerId');
-            if (playerId) {
-                syncCalledNumbers(playerId);
-            }
         })();
     </script>
 </body>
