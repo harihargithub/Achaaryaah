@@ -1,0 +1,117 @@
+Certainly! Here’s a step-by-step guide on how to use your Tambola game setup:
+
+---
+
+## **Tambola Game Usage Guide**
+
+### **1. Manager Setup (tambolaM.html)**
+
+- **Open the Manager Page:**  
+  Open tambolaM.html in your browser (e.g., `http://127.0.0.1:5501/quiz/tambolaM.html`).
+
+- **Reset Data:**  
+  Every time you refresh this page, all previous game data (called numbers and player tickets) is cleared from Firebase.  
+  This ensures a fresh game each time.
+
+- **Add Players:**  
+  Click the **"Add Player"** button for each participant.  
+  - Each click generates a new ticket and stores it in Firebase.
+  - A link for each player is shown (e.g., `http://127.0.0.1:5501/quiz/tambolaP.html?playerId=1`).  
+  - Share the respective link with each player.
+
+- **Call Numbers:**  
+  Click the **"Call Number"** button to randomly call a number.
+  - The called number is highlighted on the board.
+  - The called number and its phrase are displayed.
+  - Called numbers are stored in Firebase and synced live to all players.
+
+- **Check Win:**  
+  For each player, you can click **"Check Win"** to verify if they have a winning pattern (Full House, Row, Corners).
+
+---
+
+### **2. Player Usage (tambolaP.html)**
+
+- **Open Player Link:**  
+  Each player should open their unique link (e.g., `http://127.0.0.1:5501/quiz/tambolaP.html?playerId=1`).
+
+- **Ticket Display:**  
+  Their Tambola ticket is displayed automatically.
+
+- **Live Updates:**  
+  As numbers are called by the manager, their ticket updates automatically—punched numbers are highlighted in red.
+  - Players do **not** need to manually punch numbers; it happens live.
+
+- **Device Orientation:**  
+  Players are prompted to use landscape mode for best experience.
+
+---
+
+### **3. Game Flow**
+
+1. **Manager adds all players and shares links.**
+2. **Players open their links and see their tickets.**
+3. **Manager calls numbers; all tickets update live.**
+4. **Manager checks for winners using the "Check Win" button.**
+
+---
+
+### **Notes**
+
+- **Data Reset:**  
+  Refreshing the manager page will reset all game data.  
+  Only add players and start calling numbers after a fresh load.
+
+- **Firebase:**  
+  All tickets and called numbers are stored and synced via Firebase.  
+  Players and manager can be on different devices/browsers.
+
+- **No Manual Punching:**  
+  Players do not need to click numbers; tickets update automatically.
+
+---
+
+**Enjoy your Tambola game! If you need further help, just ask.
+**
+
+No, you do **not** need to keep the Firebase console open for the game to work.
+
+Firebase is a cloud service. As long as your code is running in the browser and connected to Firebase (using the SDK and your project credentials), all data (tickets, called numbers) will be stored and synced automatically.
+
+You only need to keep the **manager page** (tambolaM.html) and **player pages** (`tambolaP.html?playerId=...`) open in browsers. The Firebase console is only for monitoring or debugging, not required for gameplay.
+
+
+Firebase in your Tambola game acts as a **real-time cloud database** to:
+
+1. **Store and share game data** between all users (manager and players).
+2. **Save player tickets** when you add players.
+3. **Save called numbers** every time the manager calls a number.
+4. **Sync updates live**:  
+   - When a number is called, it’s instantly updated for all players.
+   - When a player opens their ticket, it’s fetched from Firebase.
+
+**In short:**  
+Firebase keeps all game participants in sync, so everyone sees the same tickets and called numbers, no matter which device or browser they use.
+
+
+To access Firebase for your Tambola game:
+https://console.firebase.google.com/project/tambola-db7bb/database/tambola-db7bb-default-rtdb/data  - Realtime Database
+(nharihar1@gmail.com)
+
+1. **Firebase Console:**  
+   Go to [https://console.firebase.google.com/](https://console.firebase.google.com/)  
+   Log in with the Google account you used to create the project.
+
+2. **Find Your Project:**  
+   Click on your project name (e.g., `tambola-db7bb`).
+
+3. **Realtime Database:**  
+   In the left sidebar, click **Build > Realtime Database**.  
+   Here you can view and manage your game data (called numbers, player tickets).
+
+4. **Project Settings:**  
+   For API keys and configuration, go to **Project Settings** (gear icon in the sidebar).
+
+**Note:**  
+You do not need to keep the Firebase console open for the game to work.  
+It’s only for monitoring, debugging, or manually editing data.
