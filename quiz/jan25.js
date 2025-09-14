@@ -57,11 +57,6 @@ var questions = [
     ],
     '1480 CE to 1600 CE',
   ),
-  new Question(
-    'Who was freed from the Brahmarakshasa curse through the divine grace and intervention of Shri Vadiraja Tirtharu?',
-    ['Hidimba', 'Bhasmasura', 'Bhootaraja', 'Ghantakarna'],
-    'Bhootaraja',
-  ),
 ];
 
 // Shuffle questions and options
