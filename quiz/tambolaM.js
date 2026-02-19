@@ -28,6 +28,18 @@ function initGame() {
   let remainingNumbers = [...totalNumbers];
   let players = [];
   let playerCount = 0;
+
+  // Fetch the current highest player ID from Firebase before allowing Add Player
+  database.ref('playerTickets').once('value').then(snapshot => {
+    const tickets = snapshot.val();
+    if (tickets) {
+      // Get the highest numeric key
+      const ids = Object.keys(tickets).map(id => parseInt(id, 10));
+      playerCount = Math.max(...ids);
+    } else {
+      playerCount = 0;
+    }
+  });
   let calledNumbers = [];
   let phrases = {};
 
