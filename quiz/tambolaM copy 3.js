@@ -107,39 +107,38 @@ function initGame() {
     const numbers = Array.from(selectedNumbers);
 
     // Distribute the 15 numbers into the ticket, leaving the rest as empty strings
-    playerCount++;
-    const playerTicket = generateRandomTicket();
-    players.push({ id: playerCount, ticket: playerTicket, punched: [] });
+    let count = 0;
+    while (count < 15) {
+      const index = Math.floor(Math.random() * ticket.length); // Randomly select an empty cell
+      if (ticket[index] === '') {
+        // Ensure the cell is empty
+        ticket[index] = numbers[count]; // Place the number in the ticket
+        count++;
+      }
+    }
 
-    // Save the player's ticket to Firebase
-    console.log(`Saving ticket for player ${playerCount}:`, playerTicket); // Debugging
-    database.ref(`playerTickets/${playerCount}`).set({ ticket: playerTicket });
+    // Ensure all remaining cells are empty strings
+    for (let i = 0; i < ticket.length; i++) {
+      if (ticket[i] === null || ticket[i] === undefined) {
+        ticket[i] = '';
+      }
+    }
 
-    // Create player element and display the ticket
-    const playerDiv = document.createElement('div');
-    playerDiv.classList.add('player-container');
-    playerDiv.id = `player-${playerCount}`;
-    const playerLink = `${window.location.origin}/quiz/tambolaP.html?playerId=${playerCount}`;
-    playerDiv.innerHTML = `
-          <h3>Player ${playerCount}</h3>
-          <div id="ticket-${playerCount}" class="ticket"></div>
-          <p>Share this link with Player ${playerCount}: 
-             <a href="${playerLink}" target="_blank">
-               Player ${playerCount} Ticket
-             </a>
-          </p>
-          <button onclick="checkWin(${playerCount})">Check Win</button>
-      `;
+    // Debugging: Log the generated ticket to verify
+    console.log('Generated Ticket for Player: ', ticket);
 
-    const ticketDiv = playerDiv.querySelector(`#ticket-${playerCount}`);
-    playerTicket.forEach((num) => {
-      const div = document.createElement('div');
-      div.classList.add('cell');
-      div.textContent = num || '';
-      ticketDiv.appendChild(div);
-    });
+    return ticket;
+  }
 
-    document.getElementById('players').appendChild(playerDiv);
+  // Call a random number
+  window.callNumber = function callNumber() {
+    if (remainingNumbers.length === 0) {
+      alert('All numbers have been called!');
+      return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * remainingNumbers.length);
+    const calledNumber = remainingNumbers.splice(randomIndex, 1)[0];
     document.getElementById('called-number').textContent = calledNumber;
 
     // Display the corresponding phrase
