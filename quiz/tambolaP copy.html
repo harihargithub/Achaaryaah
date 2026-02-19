@@ -94,8 +94,8 @@
                 const availableIds = Object.keys(playerTickets).filter(id => !playerTickets[id].allocated);
                 if (availableIds.length > 0) {
                     const newPlayerId = availableIds[0];
-                    // Only update the allocated flag for this player
-                    return database.ref(`playerTickets/${newPlayerId}/allocated`).set(true).then(() => newPlayerId);
+                    playerTickets[newPlayerId].allocated = true;
+                    return database.ref('playerTickets').set(playerTickets).then(() => newPlayerId);
                 } else {
                     throw new Error('No available player IDs');
                 }
