@@ -61,7 +61,7 @@ function initGame() {
     if (phrases[num]) {
       document.getElementById('called-phrase').textContent = phrases[num];
     } else {
-      document.getElementById('calledphrase').textContent = '';
+      document.getElementById('called-phrase').textContent = '';
     }
     // Save locally for punchNumber
     localStorage.setItem('calledNumbers', JSON.stringify(calledNumbers));
