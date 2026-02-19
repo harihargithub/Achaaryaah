@@ -107,61 +107,27 @@ function initGame() {
     const numbers = Array.from(selectedNumbers);
 
     // Distribute the 15 numbers into the ticket, leaving the rest as empty strings
-    playerCount++;
-    const playerTicket = generateRandomTicket();
-    players.push({ id: playerCount, ticket: playerTicket, punched: [] });
+    let count = 0;
+    while (count < 15) {
+      const index = Math.floor(Math.random() * ticket.length); // Randomly select an empty cell
+      if (ticket[index] === '') {
+        ticket[index] = numbers[count]; // Place the number in the ticket
+        count++;
+      }
+    }
 
-    // Save the player's ticket to Firebase
-    console.log(`Saving ticket for player ${playerCount}:`, playerTicket); // Debugging
-    database.ref(`playerTickets/${playerCount}`).set({ ticket: playerTicket });
+    // Ensure all remaining cells are empty strings
+    for (let i = 0; i < ticket.length; i++) {
+      if (ticket[i] === null || ticket[i] === undefined) {
+        ticket[i] = '';
+      }
+    }
 
-    // Create player element and display the ticket
-    const playerDiv = document.createElement('div');
-    playerDiv.classList.add('player-container');
-    playerDiv.id = `player-${playerCount}`;
-    const playerLink = `${window.location.origin}/quiz/tambolaP.html?playerId=${playerCount}`;
-    playerDiv.innerHTML = `
-          <h3>Player ${playerCount}</h3>
-          <div id="ticket-${playerCount}" class="ticket"></div>
-          <p>Share this link with Player ${playerCount}: 
-             <a href="${playerLink}" target="_blank">
-               Player ${playerCount} Ticket
-             </a>
-          </p>
-          <button onclick="checkWin(${playerCount})">Check Win</button>
-      `;
+    // Debugging: Log the generated ticket to verify
+    console.log('Generated Ticket for Player: ', ticket);
 
-    const ticketDiv = playerDiv.querySelector(`#ticket-${playerCount}`);
-    playerTicket.forEach((num) => {
-      const div = document.createElement('div');
-      div.classList.add('cell');
-      div.textContent = num || '';
-      ticketDiv.appendChild(div);
-    });
-
-    document.getElementById('players').appendChild(playerDiv);
-    document.getElementById('called-number').textContent = calledNumber;
-
-    // Display the corresponding phrase
-    const phrase = phrases[calledNumber] || '';
-    document.getElementById('called-phrase').textContent = phrase;
-
-    // Add the new called number to the list
-    calledNumbers.push(calledNumber);
-
-    // Save the updated called numbers to Firebase
-    database.ref('calledNumbers').set(calledNumbers);
-
-    // Save the updated called numbers back to localStorage
-    localStorage.setItem('calledNumbers', JSON.stringify(calledNumbers));
-
-    // Debugging: Log the called numbers to verify
-    console.log('Called Numbers: ', calledNumbers); // Log called numbers for debugging
-
-    // Highlight the called number on the board
-    const numberElement = document.getElementById(`number-${calledNumber}`);
-    if (numberElement) numberElement.classList.add('called');
-  };
+    return ticket;
+  }
 
   // Punch a number on the ticket
   window.punchNumber = function punchNumber(playerId, num, cell) {
