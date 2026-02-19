@@ -42,30 +42,6 @@ function initGame() {
   });
   let calledNumbers = [];
   let phrases = {};
-    // Expose callNumber globally for HTML event handler
-  window.callNumber = function callNumber() {
-    // Pick a random number from remainingNumbers
-    if (remainingNumbers.length === 0) {
-      alert('All numbers have been called!');
-      return;
-    }
-    const idx = Math.floor(Math.random() * remainingNumbers.length);
-    const num = remainingNumbers.splice(idx, 1)[0];
-    calledNumbers.push(num);
-    // Save to Firebase
-    database.ref('calledNumbers').set(calledNumbers);
-    // Mark number on board
-    const div = document.getElementById(`number-${num}`);
-    if (div) div.classList.add('called');
-    // Show phrase if available
-    if (phrases[num]) {
-      document.getElementById('phrase').textContent = phrases[num];
-    } else {
-      document.getElementById('phrase').textContent = '';
-    }
-    // Save locally for punchNumber
-    localStorage.setItem('calledNumbers', JSON.stringify(calledNumbers));
-  };
 
   // Load phrases from JSON file
   fetch('phrases.json')
