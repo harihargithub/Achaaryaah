@@ -59,9 +59,9 @@ function initGame() {
     if (div) div.classList.add('called');
     // Show phrase if available
     if (phrases[num]) {
-      document.getElementById('phrase').textContent = phrases[num];
+      document.getElementById('called-phrase').textContent = phrases[num];
     } else {
-      document.getElementById('phrase').textContent = '';
+      document.getElementById('calledphrase').textContent = '';
     }
     // Save locally for punchNumber
     localStorage.setItem('calledNumbers', JSON.stringify(calledNumbers));
