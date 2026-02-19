@@ -52,6 +52,9 @@ function initGame() {
     const idx = Math.floor(Math.random() * remainingNumbers.length);
     const num = remainingNumbers.splice(idx, 1)[0];
     calledNumbers.push(num);
+
+    document.getElementById('called-number').textContent = num;
+
     // Save to Firebase
     database.ref('calledNumbers').set(calledNumbers);
     // Mark number on board
