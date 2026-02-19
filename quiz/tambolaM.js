@@ -62,10 +62,8 @@ function initGame() {
   });
 
   // Clear called numbers and player tickets from Firebase when the page loads
-  database.ref().set({
-    calledNumbers: [],
-    playerTickets: {},
-  });
+    database.ref('calledNumbers').set([]);
+    database.ref('playerTickets').set({});
 
   // Function to add a player
   window.addPlayer = function addPlayer() {
